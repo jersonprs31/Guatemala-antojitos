@@ -1,0 +1,29 @@
+[
+  {
+    "id": "1",
+    "name": "Rellenitos de Plátano",
+    "description": "Mashed plantain stuffed with sweet black beans and chocolate, fried to perfection.",
+    "category": "Sweet",
+    "region": "Traditional",
+    "price": 10.00,
+    "imageUrl": "/images/rellenitos.jpg"
+  },
+  {
+    "id": "2",
+    "name": "Shucos",
+    "description": "Charcoal-toasted bread with guacamole, cabbage, mustard, mayonnaise, and assorted sausages.",
+    "category": "Savory",
+    "region": "Guatemala City",
+    "price": 15.00,
+    "imageUrl": "/images/shucos.jpg"
+  },
+  {
+    "id": "3",
+    "name": "Tostadas",
+    "description": "Crispy fried tortillas topped with salsa, guacamole, or black beans, finished with dry cheese and parsley.",
+    "category": "Savory",
+    "region": "Traditional",
+    "price": 5.00,
+    "imageUrl": "/images/tostadas.jpg"
+  }
+]
