@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from 'react';
+import Image from 'next/image';
 
 export interface Antojito {
   id: string;
@@ -15,7 +16,7 @@ export interface Antojito {
 export default function AntojitoCard({ antojito }: { antojito: Antojito }) {
   const [isFavorite, setIsFavorite] = useState(false);
 
-  // Check local storage on initial load
+  // 1. Check local storage when the component loads
   useEffect(() => {
     const favorites = JSON.parse(localStorage.getItem('antojito_favorites') || '[]');
     if (favorites.includes(antojito.id)) {
@@ -23,17 +24,20 @@ export default function AntojitoCard({ antojito }: { antojito: Antojito }) {
     }
   }, [antojito.id]);
 
-  // Toggle favorite status and save to local storage
+  // 2. Handle the heart button click
   const toggleFavorite = () => {
     const favorites = JSON.parse(localStorage.getItem('antojito_favorites') || '[]');
     let newFavorites;
     
     if (isFavorite) {
+      // Remove from favorites
       newFavorites = favorites.filter((id: string) => id !== antojito.id);
     } else {
+      // Add to favorites
       newFavorites = [...favorites, antojito.id];
     }
     
+    // Save back to local storage and update UI
     localStorage.setItem('antojito_favorites', JSON.stringify(newFavorites));
     setIsFavorite(!isFavorite);
   };
@@ -66,6 +70,7 @@ export default function AntojitoCard({ antojito }: { antojito: Antojito }) {
             Q{antojito.price.toFixed(2)}
           </span>
           <div className="flex items-center gap-2">
+            {/* The new Favorite button */}
             <button 
               onClick={toggleFavorite}
               className={`flex h-9 w-9 items-center justify-center rounded-lg border ${isFavorite ? 'border-red-500 bg-red-50 text-red-500' : 'border-gray-300 text-gray-400 hover:bg-gray-50'}`}
