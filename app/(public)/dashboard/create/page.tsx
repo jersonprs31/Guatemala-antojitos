@@ -1,8 +1,12 @@
 import { createAntojito } from '@/app/lib/actions';
-import { deleteAntojito } from '@/app/lib/actions';
 import Link from 'next/link';
+import { neon } from '@neondatabase/serverless';
 
-export default function CreateAntojitoPage() {
+export default async function CreateAntojitoPage() {
+  // Fetch categories directly from the database
+  const sql = neon(process.env.DATABASE_URL!);
+  const categories = await sql`SELECT * FROM categories ORDER BY name ASC`;
+
   return (
     <main className="max-w-3xl mx-auto p-8 text-slate-200">
       <h1 className="text-3xl font-bold text-white mb-6">Add New Antojito</h1>
@@ -17,9 +21,12 @@ export default function CreateAntojitoPage() {
           <div>
             <label className="block text-sm font-medium text-slate-400 mb-2">Category</label>
             <select name="category" required className="w-full bg-slate-800 border border-slate-700 rounded-md p-2 text-white outline-none focus:border-blue-500">
-              <option value="Sweet">Sweet</option>
-              <option value="Savory">Savory</option>
-              <option value="Drink">Drink</option>
+              <option value="">Select a category...</option>
+              {categories.map((cat) => (
+                <option key={cat.id} value={cat.name}>
+                  {cat.name}
+                </option>
+              ))}
             </select>
           </div>
         </div>
