@@ -2,6 +2,7 @@ import { getAntojitos } from '@/app/lib/data';
 import { deleteAntojito } from '@/app/lib/actions';
 import { signOut } from '@/auth';
 import Link from 'next/link';
+import CategoryManager from '@/components/CategoryManager';
 
 export default async function DashboardPage() {
   const antojitos = await getAntojitos();
@@ -29,7 +30,8 @@ export default async function DashboardPage() {
         </Link>
       </div>
 
-      <div className="overflow-x-auto bg-slate-900 rounded-lg border border-slate-800 shadow-md">
+      {/* Added mb-8 here to create space between the table and the CategoryManager */}
+      <div className="overflow-x-auto bg-slate-900 rounded-lg border border-slate-800 shadow-md mb-8">
         <table className="w-full text-left border-collapse">
           <thead>
             <tr className="bg-slate-950 border-b border-slate-700 text-slate-400 text-sm uppercase tracking-wider">
@@ -68,6 +70,9 @@ export default async function DashboardPage() {
           </tbody>
         </table>
       </div>
+
+      {/* New Category Manager Component injected here */}
+      <CategoryManager />
     </main>
   );
 }
