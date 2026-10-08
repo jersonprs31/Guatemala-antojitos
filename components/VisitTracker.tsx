@@ -1,29 +1,28 @@
-'use client';
+"use client";
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 
 export default function VisitTracker() {
-  const [visitCount, setVisitCount] = useState<number>(0);
+  const [visits, setVisits] = useState(0);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    const storedCount = localStorage.getItem('antojitos_visit_count');
-    let newCount = 1;
-
-    if (storedCount) {
-      newCount = parseInt(storedCount, 10) + 1;
-    }
-
-    localStorage.setItem('antojitos_visit_count', newCount.toString());
-    setVisitCount(newCount);
+    setMounted(true);
+    const storedVisits = localStorage.getItem("visitCount");
+    const currentVisits = storedVisits ? parseInt(storedVisits, 10) : 0;
+    const newVisits = currentVisits + 1;
+    
+    localStorage.setItem("visitCount", newVisits.toString());
+    setVisits(newVisits);
   }, []);
 
-  if (visitCount === 0) return null;
+  if (!mounted) return null;
 
   return (
-    <div className="bg-orange-100 text-orange-800 text-sm py-2 px-4 text-center rounded-md mb-6 shadow-sm">
-      {visitCount === 1 
-        ? '¡Bienvenido a Guatemala Antojitos por primera vez!' 
-        : `¡Qué bueno verte de nuevo! Has explorado antojitos ${visitCount} veces.`}
+    <div className="bg-[#fdf0d5] text-[#8b5a2b] py-2 px-4 rounded-md text-center text-sm font-medium mb-6">
+      {visits > 1 
+        ? `Great to see you again! You have explored antojitos ${visits} times.`
+        : "Welcome! This is your first time exploring our antojitos."}
     </div>
   );
 }
