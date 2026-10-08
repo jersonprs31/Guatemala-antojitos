@@ -1,11 +1,9 @@
 import { neon } from '@neondatabase/serverless';
 
 const sql = neon(process.env.DATABASE_URL!);
-const ITEMS_PER_PAGE = 6;
 
 export async function getAntojitos(query: string = '', currentPage: number = 1) {
   const searchTerm = `%${query}%`;
-  const offset = (currentPage - 1) * ITEMS_PER_PAGE;
 
   try {
     const rows = await sql`
@@ -14,7 +12,6 @@ export async function getAntojitos(query: string = '', currentPage: number = 1) 
          OR category ILIKE ${searchTerm}
          OR region ILIKE ${searchTerm}
       ORDER BY name ASC
-      LIMIT ${ITEMS_PER_PAGE} OFFSET ${offset}
     `;
     return rows;
   } catch (error) {
